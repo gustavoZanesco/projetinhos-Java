@@ -57,11 +57,11 @@ public class Teleop extends CommandBase
         if ( oi.getDriveLeftTrigger() ) { inputLeftX = 0; };
         if ( oi.getDriveRightTrigger() ) { inputLeftY = 0; }; 
         
-        subDrive.omnidiretional_Local(-inputLeftX * 53.4, -inputLeftY * 53.4, -inputRightX * 53.4   );
+        subDrive.omnidiretional_Global(-inputLeftX * 53.4, -inputLeftY * 53.4, -inputRightX * 53.4 );
 
-        SmartDashboard.putNumber("vertical esq", -inputLeftX);
-        SmartDashboard.putNumber("horizontal esq", -inputLeftY);
-        SmartDashboard.putNumber("horizontal dir", -inputRightX);
+        ///SmartDashboard.putNumber("vertical esq", -inputLeftX);
+        //SmartDashboard.putNumber("horizontal esq", -inputLeftY);
+        //SmartDashboard.putNumber("horizontal dir", -inputRightX);
         //if ( oi.getBotaoResetGiroscopio() ) { subBase.giroscopio.reset(); subBase.resetEncoder(); };
     }
 

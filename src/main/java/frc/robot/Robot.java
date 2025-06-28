@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command m_autonomousCommand, teleopCommand;
 
   private RobotContainer m_robotContainer;
 
@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    RobotContainer.subDriveGlobal.atualizarPosicaoGlobal(0, 0, 0);
   }
 
   /**
@@ -68,6 +69,11 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
+
+    if (teleopCommand != null) {
+      teleopCommand.cancel();
+    }
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -82,12 +88,16 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    teleopCommand = m_robotContainer.getTeleopCommand();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+    }
+    if (teleopCommand != null) {
+      teleopCommand.schedule();
     }
   }
 
